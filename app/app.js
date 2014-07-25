@@ -15,11 +15,16 @@ app.applyBaseCSS = function(){
 	var bodySelector = context.append($.s.select('body', {
 		'background-color':'@purple',
 	}));
-	bodySelector.append($.s.select('.page-view', {
+
+	var pageViewSelector = bodySelector.append($.s.select('.page-view', {
 		'background-color':'@greenish',
 		'border':'solid 1px #999',
 		'width':'@{testWidth}',
 		'height':'@{testHeight}px'
+	}));
+
+	pageViewSelector.append($.s.select('.sub-sub-view', {
+		'display':'inline-block'
 	}));
 
 	context.apply();		

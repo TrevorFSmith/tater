@@ -2,31 +2,54 @@
 /*
 	JSS simplifies the generation of CSS content.
 
+		// Create a CSS context which corresponse to a <style> element
 		var context = $.s.context({
-			'purple':'#FF0',
-			'testWidth':200
+			// These are variables used when rendering style variables
+			'purple':'#F0F',
+			'greenish':'#4F4',
+			'testWidth':'90%'
 		});
-		context.append('This is a comment', { 'testHeight':250 });
+		context.append('This is a comment', {
+			'testHeight':250 // This is another variable
+		});
 
-		var bodySelector = context.append($.s.select('body', {'background-color':'#F00'}));
-		bodySelector.append($.s.select('.page', {
-			'border':'solid 1px #999',
+		// Create a selector scope for the body element and set its background color using a context variable, purple.
+		var bodySelector = context.append($.s.select('body', {
 			'background-color':'@purple',
-			'width':'@{testWidth}px',
-			'height':'@{testHeight}px',
 		}));
-		context.render();
+
+		// Create a sub-selector and assign some styles to it
+		var pageViewSelector = bodySelector.append($.s.select('.page-view', {
+			'background-color':'@greenish',
+			'border':'solid 1px #999',
+			'width':'@{testWidth}',
+			'height':'@{testHeight}px'
+		}));
+
+		// Create a sub-sub-selector
+		pageViewSelector.append($.s.select('.sub-sub-view', {
+			'display':'inline-block'
+		}));
+
+		// This creates the <style> element and renders the context CSS into it
+		context.apply();		
+	
+	These are the CSS results for the example above:
 
 		// This is a comment
 		body {
-			background-color: #F00;
+			background-color: #F0F;
 		}
-		body .page {
+		body .page-view {
+			background-color: #4F4;
 			border: solid 1px #999;
-			background-color: #FF0;
-			width: 200px;
+			width: 90%;
 			height: 250px;
 		}
+		body .page-view .sub-sub-view {
+			display: inline-block;
+		}
+
 */
 (function(context) {
 	var jss = {};
