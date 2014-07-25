@@ -1,19 +1,23 @@
 var tater = {};
 tater.boot = {};
 
+/*
+	These resources will be injected at boot time.
+	tater.boot.documentReady will be called when they are all loaded.
+*/
 tater.boot.resourceURLs = [
 	{'type':'script', 'url':'static/jquery-1.10.2.js'},
 	{'type':'script', 'url':'static/bootstrap-3.1/javascripts/bootstrap.min.js'},
+	{'type':'script', 'url':'static/underscore-min.js'},
 	{'type':'script', 'url':'static/laconic.js'},
-	{'type':'css', 'url':'compiled/tater.css'}
+	{'type':'script', 'url':'static/backbone-min.js'},
+	{'type':'css', 'url':'compiled/tater.css'},
+	{'type':'script', 'url':'app/app.js'}
 ];
 
 tater.boot.documentReady = function(){
-	var container = $.el.div({'class':'container-fluid'});
-	$('body').append(container);
-	var row = container.append($.el.div({'class':'row'}));
-	var col = row.append($.el.div({'class':'col-xs-12'}));
-	col.append($.el.h1('Tater'));
+	var pageView = new app.views.PageView();
+	$('body').append(pageView.el);
 }
 
 tater.boot.setupOnloadCallback = function(element, callback){
