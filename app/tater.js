@@ -11,11 +11,13 @@ tater.boot.resourceURLs = [
 	{'type':'script', 'url':'static/underscore-min.js'},
 	{'type':'script', 'url':'static/laconic.js'},
 	{'type':'script', 'url':'static/backbone-min.js'},
+	{'type':'script', 'url':'static/jss.js'},
 	{'type':'css', 'url':'compiled/tater.css'},
 	{'type':'script', 'url':'app/app.js'}
 ];
 
 tater.boot.documentReady = function(){
+	app.applyBaseCSS();
 	var pageView = new app.views.PageView();
 	$('body').append(pageView.el);
 }

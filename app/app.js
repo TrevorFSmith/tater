@@ -1,9 +1,29 @@
 /*
 	This file assumes that tater.js has loaded all of the requisite JS and CSS for Backbone, Bootstrap, Laconic, etc.
 */
-console.log("App.js")
 var app = {};
 app.views = {};
+
+app.applyBaseCSS = function(){
+	var context = $.s.context({
+		'purple':'#F0F',
+		'greenish':'#4F4',
+		'testWidth':'90%'
+	});
+	context.append('This is a comment', { 'testHeight':250 });
+
+	var bodySelector = context.append($.s.select('body', {
+		'background-color':'@purple',
+	}));
+	bodySelector.append($.s.select('.page-view', {
+		'background-color':'@greenish',
+		'border':'solid 1px #999',
+		'width':'@{testWidth}',
+		'height':'@{testHeight}px'
+	}));
+
+	context.apply();		
+}
 
 app.views.PageView = Backbone.View.extend({
 	className: 'page-view',
